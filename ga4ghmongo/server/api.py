@@ -86,27 +86,27 @@ class VariantCallResource(Resource):
 #    allowed_ordering = ["start"]
 
 
-@api.register(name='variant_sets', url='/variant_sets/')
+@api.register(name='variant_sets', url='/1.0/variant_sets/')
 class VariantSetView(ResourceView):
     resource = VariantSetResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='variants', url='/variants/')
+@api.register(name='variants', url='/1.0/variants/')
 class VariantView(ResourceView):
     resource = VariantResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='call_sets', url='/call_sets/')
+@api.register(name='call_sets', url='/1.0/call_sets/')
 class VariantCallView(ResourceView):
     resource = CallSetResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='variant_call_sets', url='/variant_call_sets/')
+@api.register(name='variant_call_sets', url='/1.0/variant_call_sets/')
 class VariantCallView(ResourceView):
     resource = VariantCallSetResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='variant_calls', url='/variant_calls/')
+@api.register(name='variant_calls', url='/1.0/variant_calls/')
 class VariantCallView(ResourceView):
     resource = VariantCallResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
