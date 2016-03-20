@@ -32,7 +32,6 @@ class In(Operator):
 app = Flask(__name__)
 
 MONGOLAB_URI =  os.environ.get("MONGOLAB_URI")
-print MONGOLAB_URI
 if MONGOLAB_URI is None:
 	app.config.update(
 	    MONGODB_HOST = 'localhost',
@@ -113,5 +112,4 @@ class VariantCallView(ResourceView):
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
 
-if __name__ == '__main__':
-    app.run(debug=True)    
+  
