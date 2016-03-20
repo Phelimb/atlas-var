@@ -1,4 +1,6 @@
 from ga4ghmongo.schema.models import VariantCallSet
+from ga4ghmongo.schema.models import CallSet
+from ga4ghmongo.schema.models import Call
 from ga4ghmongo.schema.models import VariantCall
 from ga4ghmongo.schema.models import SequenceCall
 from ga4ghmongo.schema.models import Variant
