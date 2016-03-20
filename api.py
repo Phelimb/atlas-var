@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
@@ -30,11 +31,16 @@ class In(Operator):
 
 app = Flask(__name__)
 
-app.config.update(
-    MONGODB_HOST = 'localhost',
-    MONGODB_PORT = '27017',
-    MONGODB_DB = 'atlas-tb',
-)
+MONGOLAB_URI =  os.environ.get("MONGOLAB_URI")
+print MONGOLAB_URI
+if MONGOLAB_URI is None:
+	app.config.update(
+	    MONGODB_HOST = 'localhost',
+	    MONGODB_PORT = '27017',
+	    MONGODB_DB = 'atlas-tb',
+	)
+else:
+	app.config.update(MONGOLAB_URI=MONGOLAB_URI)
 
 db = MongoEngine(app)
 api = MongoRest(app)
