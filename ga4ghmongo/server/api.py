@@ -39,7 +39,7 @@ if MONGOLAB_URI is None:
 	    MONGODB_DB = 'atlas-tb',
 	)
 else:
-	app.config.update(MONGOLAB_URI=MONGOLAB_URI)
+	app.config.update(MONGODB_HOST=MONGOLAB_URI)
 
 db = MongoEngine(app)
 api = MongoRest(app)
