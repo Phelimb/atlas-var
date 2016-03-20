@@ -84,29 +84,39 @@ class VariantCallResource(Resource):
         'variant': Variant,
     }
 #    allowed_ordering = ["start"]
+version_string = "1.0"
 
+@api.register(name='reference_sets', url='/%s/reference_sets/' % version_string)
+class ReferenceSetView(ResourceView):
+    resource = ReferenceSetResource
+    methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='variant_sets', url='/1.0/variant_sets/')
+@api.register(name='references', url='/%s/references/' % version_string)
+class ReferenceView(ResourceView):
+    resource = ReferenceResource
+    methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
+
+@api.register(name='variant_sets', url='/%s/variant_sets/' % version_string)
 class VariantSetView(ResourceView):
     resource = VariantSetResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='variants', url='/1.0/variants/')
+@api.register(name='variants', url='/%s/variants/' % version_string)
 class VariantView(ResourceView):
     resource = VariantResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='call_sets', url='/1.0/call_sets/')
+@api.register(name='call_sets', url='/%s/call_sets/' % version_string)
 class VariantCallView(ResourceView):
     resource = CallSetResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='variant_call_sets', url='/1.0/variant_call_sets/')
+@api.register(name='variant_call_sets', url='/%s/variant_call_sets/' % version_string)
 class VariantCallView(ResourceView):
     resource = VariantCallSetResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='variant_calls', url='/1.0/variant_calls/')
+@api.register(name='variant_calls', url='/%s/variant_calls/' % version_string)
 class VariantCallView(ResourceView):
     resource = VariantCallResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]

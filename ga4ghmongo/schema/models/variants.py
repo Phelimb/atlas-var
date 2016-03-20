@@ -58,7 +58,7 @@ class VariantSet(Document, CreateAndSaveMixin):
     reference_set = ReferenceField('ReferenceSet', required=True)
 
     @classmethod
-    def create(cls, name, reference_set=None, dataset=None):
+    def create(cls, name, reference_set, dataset=None):
         c = cls(name=name, reference_set=reference_set, dataset=dataset)
         return c.save()
 
