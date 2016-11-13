@@ -56,7 +56,9 @@ class ReferenceResource(Resource):
 
 class VariantSetResource(Resource):
     document = VariantSet
-
+    rename_fields = {
+        'reference_set': 'reference_set_id',
+    }
 class VariantResource(Resource):
     max_limit = 250
     document = Variant
@@ -69,6 +71,7 @@ class VariantResource(Resource):
         "variant_sets" : [ops.Exact, In]
     }
     allowed_ordering = ["start"]
+
 
 class CallSetResource(Resource):
     document = CallSet

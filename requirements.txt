@@ -1,7 +1,7 @@
 gunicorn
 mongoengine
 Flask-MongoRest
--e git://github.com/closeio/mongoengine.git#egg=mongoengine-dev
+#-e git://github.com/closeio/mongoengine.git#egg=mongoengine-dev
 -e git://github.com/closeio/flask-mongoengine.git#egg=flask-mongoengine
 mimerender
 python-dateutil
@@ -11,4 +11,5 @@ Flask
 Flask-Views
 Flask-WTF==0.8.4
 pymongo<3.0
+git+https://github.com/Phelimb/atlas
 
