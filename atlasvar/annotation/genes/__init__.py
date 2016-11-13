@@ -1,3 +1,3 @@
-from mykatlas.annotation.genes.models import Region
-from mykatlas.annotation.genes.models import Gene
-from mykatlas.annotation.genes.models import GeneAminoAcidChangeToDNAVariants
+from atlasvar.annotation.genes.models import Region
+from atlasvar.annotation.genes.models import Gene
+from atlasvar.annotation.genes.models import GeneAminoAcidChangeToDNAVariants
