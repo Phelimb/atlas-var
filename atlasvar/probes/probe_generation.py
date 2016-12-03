@@ -32,12 +32,12 @@ def seen_together(variants):
     # Returns a list of variants that appear together (in the same variant set)
     variant_to_samples = {}
     for variant in variants:
-        variant_to_samples[variant] = variant.seen_in_samples()
+        variant_to_samples[variant.id] = variant.seen_in_samples()
 
     samples_counter = Counter(flatten(variant_to_samples.values()))
     samples_seen_more_than_once = [
         k for k,
-        v in samples_counter.iteritems() if v > 1]
+        v in samples_counter.items() if v > 1]
     contexts = []
     for sample in samples_seen_more_than_once:
         vars_together = []
