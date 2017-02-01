@@ -72,8 +72,15 @@ class AlleleGenerator(object):
         context = self._remove_overlapping_contexts(v, context)
         context = self._remove_contexts_not_within_k(v, context)
         wild_type_reference = self._get_wildtype_reference(v)
+        null_variant = Variant.create(
+            v.start, v.reference_bases, alternate_bases=[v.reference_bases])
+        if null_variant.is_deletion:
+            print(null_variant)
+
+        references = self._generate_alternates_on_all_backgrounds(
+            null_variant, context)
         alternates = self._generate_alternates_on_all_backgrounds(v, context)
-        return Panel(v, wild_type_reference, v.start, alternates)
+        return Panel(v, references, v.start, alternates)
 
     def _check_valid_variant(self, v):
         index = v.start - 1
@@ -336,9 +343,9 @@ class AlleleGenerator(object):
 
 class Panel(object):
 
-    def __init__(self, variant, ref, start, alts):
+    def __init__(self, variant, refs, start, alts):
         self.variant = variant
-        self.ref = "".join(ref)
+        self.refs = unique(["".join(ref) for ref in refs])
         self.start = start
         self.alts = unique(["".join(alt) for alt in alts])
 

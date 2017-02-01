@@ -2,7 +2,6 @@ from __future__ import print_function
 import sys
 from collections import Counter
 from mongoengine import connect
-from mongoengine.connection import ConnectionError
 from pymongo.errors import ServerSelectionTimeoutError
 import logging
 from ga4ghmongo.schema import Variant
@@ -59,7 +58,7 @@ def make_variant_probe(al, variant, kmer, DB=None, no_backgrounds=False):
         if DB is not None:
             try:
                 context = get_context(variant.start, kmer)
-            except (ServerSelectionTimeoutError, ConnectionError):
+            except:
                 DB = None
                 context = []
                 logging.warning(
