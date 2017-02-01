@@ -11,5 +11,5 @@ cleancat>=0.3
 Flask
 Flask-Views
 Flask-WTF==0.8.4
-git+https://github.com/Phelimb/atlas
+#git+https://github.com/Phelimb/atlas
 

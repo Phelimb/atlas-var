@@ -11,8 +11,8 @@ from collections import Counter
 import logging
 import datetime
 import math
-from mykatlas.utils import make_hash
-from mykatlas.utils import split_var_name
+from atlasvar.utils import make_hash
+from atlasvar.utils import split_var_name
 from ga4ghmongo.schema.models.base import CreateAndSaveMixin
 from ga4ghmongo.schema import Variant
 
@@ -74,9 +74,6 @@ class AlleleGenerator(object):
         wild_type_reference = self._get_wildtype_reference(v)
         null_variant = Variant.create(
             v.start, v.reference_bases, alternate_bases=[v.reference_bases])
-        if null_variant.is_deletion:
-            print(null_variant)
-
         references = self._generate_alternates_on_all_backgrounds(
             null_variant, context)
         alternates = self._generate_alternates_on_all_backgrounds(v, context)

@@ -10,7 +10,7 @@ from ga4ghmongo.schema import VariantSetMetadata
 from ga4ghmongo.schema import VariantCall
 from ga4ghmongo.schema import Reference
 from ga4ghmongo.schema import ReferenceSet
-from mykatlas.utils import make_var_hash
+from atlasvar.utils import make_var_hash
 
 GLOBAL_VARIANT_SET_NAME = "global_atlas"
 
