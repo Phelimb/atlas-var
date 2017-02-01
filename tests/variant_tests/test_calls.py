@@ -7,6 +7,7 @@ from ga4ghmongo.schema import ReferenceSet
 
 from ga4ghmongo.utils import split_var_name
 from mongoengine import connect
+
 DB = connect('ga4ghmongo-test')
 
 
