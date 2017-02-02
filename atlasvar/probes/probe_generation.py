@@ -80,11 +80,12 @@ def make_variant_probe(al, variant, kmer, DB=None, no_backgrounds=False):
             logging.warning("Failed to process variant:%s context:%s. %s" % (
                 variant, ",".join([str(c) for c in context]), str(e)))
         else:
-            panel.alts
             if variant_probe is not None:
                 variant_probe.alts.extend(panel.alts)
+                variant_probe.refs.extend(panel.refs)
             else:
                 variant_probe = panel
     if variant_probe:
         variant_probe.alts = unique(variant_probe.alts)
+        variant_probe.refs = unique(variant_probe.refs)
     return variant_probe
