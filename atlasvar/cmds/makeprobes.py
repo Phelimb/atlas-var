@@ -4,7 +4,6 @@ import os
 import sys
 import logging
 from mongoengine import connect
-from mongoengine.connection import ConnectionError
 from mongoengine import DoesNotExist
 from mongoengine import NotUniqueError
 
@@ -20,9 +19,9 @@ from atlasvar.utils import split_var_name
 from atlasvar.annotation.genes import GeneAminoAcidChangeToDNAVariants
 from atlasvar._vcf import VCF
 
-from atlasvar.panelgeneration.models import Mutation
-from atlasvar.panelgeneration import AlleleGenerator
-from atlasvar.panelgeneration import make_variant_probe
+from atlasvar.probes.models import Mutation
+from atlasvar.probes import AlleleGenerator
+from atlasvar.probes import make_variant_probe
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -100,19 +99,16 @@ def run(parser, args):
         variant_panel = make_variant_probe(
             al, mut.variant, args.kmer, DB=DB, no_backgrounds=args.no_backgrounds)
         if variant_panel is not None:
-            if mut.gene:
+            for i, ref in enumerate(variant_panel.refs):
                 sys.stdout.write(
-                    ">ref-%s?num_alts=%i&gene=%s&mut=%s&ref=%s\n" %
-                    (mut.variant.var_name, len(
-                        variant_panel.alts), mut.gene.name, mut.mut, mut.reference))
-            else:
-                sys.stdout.write(
-                    ">ref-%s?num_alts=%i\n" %
-                    (mut.variant.var_name, len(
-                        variant_panel.alts)))
-            sys.stdout.write("%s\n" % variant_panel.ref)
-            for a in variant_panel.alts:
-                sys.stdout.write(">alt-%s\n" % mut.mut)
+                    ">ref-%s?var_name=%snum_alts=%i&ref=%s&enum=%i&mut=%s\n" %
+                    (mut.mut, mut.variant.var_name, len(
+                        variant_panel.alts), mut.reference, i, mut.mut))
+                sys.stdout.write("%s\n" % ref)
+
+            for i, a in enumerate(variant_panel.alts):
+                sys.stdout.write(">alt-%s?var_name=%s&enum=%i&mut=%s\n" %
+                                 (mut.mut, mut.variant.var_name, i, mut.mut))
                 sys.stdout.write("%s\n" % a)
         else:
             logging.warning(
