@@ -37,9 +37,9 @@ def run(parser, args):
     al = AlleleGenerator(
         reference_filepath=args.reference_filepath,
         kmer=args.kmer)
-    # _variant_ids = get_non_singelton_variants(db_name)
-    # for variant in Variant.snps(id__in=_variant_ids).order_by("start"):
-    for variant in Variant.snps().order_by("start"):
+    _variant_ids = get_non_singelton_variants(db_name)
+    for variant in Variant.snps(id__in=_variant_ids).order_by("start"):
+    #for variant in Variant.snps().order_by("start"):
         variant_panel = make_variant_probe(al, variant, args.kmer, DB=DB)
         for i, ref in enumerate(variant_panel.refs):
             sys.stdout.write(

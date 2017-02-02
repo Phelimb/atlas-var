@@ -40,7 +40,8 @@ def seen_together(variants):
     contexts = []
     for sample in samples_seen_more_than_once:
         vars_together = []
-        for variant, samples in variant_to_samples.items():
+        for variant_id, samples in variant_id_to_samples.items():
+            variant = Variant.objects.get(var_hash=variant_id)
             if sample in samples:
                 vars_together.append(variant)
         if vars_together not in contexts:
