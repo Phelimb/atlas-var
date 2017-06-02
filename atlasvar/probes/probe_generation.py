@@ -11,7 +11,7 @@ from atlasvar.utils import unique
 from atlasvar.probes import AlleleGenerator
 from ga4ghmongo.schema import VariantSet
 
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -38,18 +38,29 @@ def seen_together(variants):
         k for k,
         v in samples_counter.items() if v > 1]
     contexts = []
+
     for sample in samples_seen_more_than_once:
         vars_together = []
+
         for variant_id, samples in variant_id_to_samples.items():
-            variant = Variant.objects.get(var_hash=variant_id)
             if sample in samples:
-                vars_together.append(variant)
+                vars_together.append(variant_id)
+
         if vars_together not in contexts:
             contexts.append(vars_together)
-            variants = [var for var in variants if var not in vars_together]
+            variants = [
+                var for var in variants if var.var_hash not in vars_together]
+
     for var in variants:
-        contexts.append([var])
-    return contexts + [[]]
+        contexts.append([var.var_hash])
+
+    new_contexts = []
+    for context in contexts:
+        new_context = []
+        for variant_id in context:
+            new_context.append(Variant.objects.get(var_hash=variant_id))
+        new_contexts.append(new_context)
+    return new_contexts + [[]]
 
 
 def make_variant_probe(al, variant, kmer, DB=None, no_backgrounds=False):
@@ -62,22 +73,24 @@ def make_variant_probe(al, variant, kmer, DB=None, no_backgrounds=False):
             except:
                 DB = None
                 context = []
-                logging.warning(
+                logger.warning(
                     "Could not connect to database. Continuing without using genetic backgrounds")
         else:
             context = []
     if context:
-        logging.info(
+        logger.debug(
             "Found %i variants in context of %s" %
             (len(context), variant))
     variant_probe = None
     contexts_seen_together = seen_together(context)
     alts = []
     for context in contexts_seen_together:
+        logger.debug("Processing variant:%s context:%s" % (
+            variant, ",".join([str(c) for c in context])))
         try:
             panel = al.create(variant, context)
         except ValueError as e:
-            logging.warning("Failed to process variant:%s context:%s. %s" % (
+            logger.warning("Failed to process variant:%s context:%s. %s" % (
                 variant, ",".join([str(c) for c in context]), str(e)))
         else:
             if variant_probe is not None:

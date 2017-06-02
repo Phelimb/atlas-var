@@ -24,7 +24,7 @@ from atlasvar.probes import AlleleGenerator
 from atlasvar.probes import make_variant_probe
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -95,20 +95,23 @@ def run(parser, args):
     al = AlleleGenerator(
         reference_filepath=args.reference_filepath,
         kmer=args.kmer)
-    for mut in mutations:
+    for enum, mut in enumerate(mutations):
+        if enum % 100 == 0:
+            logger.info(
+                "%i of %i - %f%%" % (enum, len(mutations), round(100*enum/len(mutations), 2)))
         variant_panel = make_variant_probe(
             al, mut.variant, args.kmer, DB=DB, no_backgrounds=args.no_backgrounds)
         if variant_panel is not None:
             for i, ref in enumerate(variant_panel.refs):
                 sys.stdout.write(
-                    ">ref-%s?var_name=%s&num_alts=%i&ref=%s&enum=%i&mut=%s\n" %
+                    ">ref-%s?var_name=%s&num_alts=%i&ref=%s&enum=%i&gene=%s&mut=%s\n" %
                     (mut.mut, mut.variant.var_name, len(
-                        variant_panel.alts), mut.reference, i, mut.mut))
+                        variant_panel.alts), mut.reference, i, mut.gene.name, mut.mut))
                 sys.stdout.write("%s\n" % ref)
 
             for i, a in enumerate(variant_panel.alts):
-                sys.stdout.write(">alt-%s?var_name=%s&enum=%i&mut=%s\n" %
-                                 (mut.mut, mut.variant.var_name, i, mut.mut))
+                sys.stdout.write(">alt-%s?var_name=%s&enum=%i&gene=%s&mut=%s\n" %
+                                 (mut.mut, mut.variant.var_name, i, mut.gene.name, mut.mut))
                 sys.stdout.write("%s\n" % a)
         else:
             logging.warning(
