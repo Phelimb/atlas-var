@@ -101,7 +101,7 @@ def run(parser, args):
         if variant_panel is not None:
             for i, ref in enumerate(variant_panel.refs):
                 sys.stdout.write(
-                    ">ref-%s?var_name=%snum_alts=%i&ref=%s&enum=%i&mut=%s\n" %
+                    ">ref-%s?var_name=%s&num_alts=%i&ref=%s&enum=%i&mut=%s\n" %
                     (mut.mut, mut.variant.var_name, len(
                         variant_panel.alts), mut.reference, i, mut.mut))
                 sys.stdout.write("%s\n" % ref)
