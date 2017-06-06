@@ -12,12 +12,7 @@ from atlasvar.version import __version__
 import logging
 
 
-<< << << < HEAD
-== == == =
 DEFAULT_KMER_SIZE = os.environ.get("KMER_SIZE", 31)
-
-
->>>>>> > dev
 
 
 class ArgumentParserWithDefaults(argparse.ArgumentParser):
@@ -30,8 +25,6 @@ class ArgumentParserWithDefaults(argparse.ArgumentParser):
             help="do not output warnings to stderr",
             action="store_true",
             dest="quiet")
-
-<< << << < HEAD
 DEFAULT_KMER_SIZE = os.environ.get("KMER_SIZE", 31)
 DEFAULT_DB_NAME = os.environ.get("DB_NAME", "atlas")
 force_mixin = argparse.ArgumentParser(add_help=False)
