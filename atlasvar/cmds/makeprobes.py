@@ -64,7 +64,7 @@ def run(parser, args):
                                      gene=aa2dna.get_gene(gene),
                                      mut=mutation))
         else:
-            for variant in args.variant:
+            for variant in args.variants:
                 gene, mutation = variant.split("_")
                 for var_name in aa2dna.get_variant_names(gene, mutation):
                     mutations.append(
@@ -103,15 +103,20 @@ def run(parser, args):
             al, mut.variant, args.kmer, DB=DB, no_backgrounds=args.no_backgrounds)
         if variant_panel is not None:
             for i, ref in enumerate(variant_panel.refs):
+                try:
+                    gene_name = mut.gene.name
+                except AttributeError:
+                    gene_name = "NA"
+
                 sys.stdout.write(
                     ">ref-%s?var_name=%s&num_alts=%i&ref=%s&enum=%i&gene=%s&mut=%s\n" %
                     (mut.mut, mut.variant.var_name, len(
-                        variant_panel.alts), mut.reference, i, mut.gene.name, mut.mut))
+                        variant_panel.alts), mut.reference, i, gene_name, mut.mut))
                 sys.stdout.write("%s\n" % ref)
 
             for i, a in enumerate(variant_panel.alts):
                 sys.stdout.write(">alt-%s?var_name=%s&enum=%i&gene=%s&mut=%s\n" %
-                                 (mut.mut, mut.variant.var_name, i, mut.gene.name, mut.mut))
+                                 (mut.mut, mut.variant.var_name, i, gene_name, mut.mut))
                 sys.stdout.write("%s\n" % a)
         else:
             logging.warning(
