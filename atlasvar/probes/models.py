@@ -366,7 +366,7 @@ class Mutation(object):
     @property
     def mut(self):
         if self.gene is not None:
-            if self.gene.forward:
+            if True:
                 ref = self.ref
                 alt = self.alt
             else:
