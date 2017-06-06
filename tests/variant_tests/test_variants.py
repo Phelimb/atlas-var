@@ -49,6 +49,9 @@ class TestVariants(BaseTest):
             reference_sets=[
                 self.reference_set])
 
+    def teardown(self):
+        DB.drop_database('ga4ghmongo-test')
+
     def test_create_SNP(self):
         v1 = Variant.create(variant_sets=self.variant_sets, start=0,
                             end=1, reference_bases="A",

@@ -12,6 +12,14 @@ from atlasvar.version import __version__
 import logging
 
 
+<< << << < HEAD
+== == == =
+DEFAULT_KMER_SIZE = os.environ.get("KMER_SIZE", 31)
+
+
+>>>>>> > dev
+
+
 class ArgumentParserWithDefaults(argparse.ArgumentParser):
 
     def __init__(self, *args, **kwargs):
@@ -23,6 +31,7 @@ class ArgumentParserWithDefaults(argparse.ArgumentParser):
             action="store_true",
             dest="quiet")
 
+<< << << < HEAD
 DEFAULT_KMER_SIZE = os.environ.get("KMER_SIZE", 31)
 DEFAULT_DB_NAME = os.environ.get("DB_NAME", "atlas")
 force_mixin = argparse.ArgumentParser(add_help=False)
@@ -38,6 +47,15 @@ def run_subtool(parser, args):
         from atlasvar.cmds.add import run
     elif args.command == "add-gt":
         from atlasvar.cmds.atlasadd import run
+== == == =
+
+
+def run_subtool(parser, args):
+    if args.command == 'insert':
+        from atlasvar.cmds.insert import run
+    # elif args.command == "add-gt":
+    #     from atlasvar.cmds.atlasadd import run
+>>>>>> > dev
     elif args.command == "dump-probes":
         from atlasvar.cmds.dump import run
     elif args.command == "make-probes":
@@ -52,6 +70,14 @@ def run_subtool(parser, args):
     #     from atlasvar.cmds.diff import run
     # run the chosen submodule.
     run(parser, args)
+
+
+force_mixin = argparse.ArgumentParser(add_help=False)
+force_mixin.add_argument(
+    '-f',
+    '--force',
+    action='store_true',
+    help='force')
 
 
 def main():
@@ -81,8 +107,8 @@ def main():
     # Add
     ##########
     parser_add = subparsers.add_parser(
-        'add',
-        help='adds a set of variants to the atlas',
+        'insert',
+        help='Adds a VCF or set of atlas genotypes to the datastore',
         parents=[db_parser_mixin, force_mixin])
     parser_add.add_argument('vcf', type=str, help='a vcf file')
     parser_add.add_argument('reference_set', type=str, help='reference set')
@@ -94,19 +120,19 @@ def main():
         default="NotSpecified")
     parser_add.set_defaults(func=run_subtool)
 
-    parser_add_gt = subparsers.add_parser(
-        'add-gt',
-        help='adds a set of atlas genotype calls to the atlas',
-        parents=[db_parser_mixin, force_mixin])
-    parser_add_gt.add_argument('jsons', type=str, nargs='+',
-                               help='json output from `atlas genotype`')
-    parser_add_gt.add_argument(
-        '-m',
-        '--method',
-        type=str,
-        help='variant caller method (e.g. CORTEX)',
-        default="atlas")
-    parser_add_gt.set_defaults(func=run_subtool)
+    # parser_add_gt = subparsers.add_parser(
+    #     'add-gt',
+    #     help='adds a set of atlas genotype calls to the atlas',
+    #     parents=[db_parser_mixin])
+    # parser_add_gt.add_argument('jsons', type=str, nargs='+',
+    #                            help='json output from `atlas genotype`')
+    # parser_add_gt.add_argument(
+    #     '-m',
+    #     '--method',
+    #     type=str,
+    #     help='variant caller method (e.g. CORTEX)',
+    #     default="atlas")
+    # parser_add_gt.set_defaults(func=run_subtool)
 
     # ##########
     # # Dump panel
@@ -154,6 +180,7 @@ def main():
     parser_make_probes.add_argument(
         '-v',
         '--variants',
+
         type=str,
         action='append',
         help='Variant in DNA positions e.g. A1234T',
@@ -180,82 +207,6 @@ def main():
         default=False,
         action="store_true")
     parser_make_probes.set_defaults(func=run_subtool)
-
-    # ##########
-    # # Genotype
-    # ##########
-    # parser_geno = subparsers.add_parser(
-    #     'genotype',
-    #     parents=[
-    #         sequence_or_binary_parser_mixin,
-    #         probe_set_mixin,
-    #         force_mixin,
-    #         genotyping_mixin],
-    #     help='genotype a sample using a probe set')
-    # parser_geno.set_defaults(func=run_subtool)
-
-    ##############
-    ## Walk ##
-    #############
-    # parser_walk = subparsers.add_parser(
-    #     'walk',
-    #     parents=[
-    #         sequence_or_binary_parser_mixin,
-    #         probe_set_mixin,
-    #         force_mixin,
-    #         genotyping_mixin],
-    #     help='Walk through a graph using an existing sequence probe set as seeds. default walking algorithm is a depth first search')
-    # parser_walk.add_argument(
-    #     '--also-genotype',
-    #     default=False,
-    #     action="store_true")
-    # parser_walk.add_argument('--show-all-paths', action="store_true")
-    # parser_walk.set_defaults(func=run_subtool)
-
-    ##############
-    ## Place ##
-    #############
-    # parser_place = subparsers.add_parser(
-    #     'place', help='Place a sample on a prebuilt tree', parents=[
-    #         db_parser_mixin, force_mixin])
-    # parser_place.add_argument(
-    #     'sample',
-    #     metavar='sample',
-    #     type=str,
-    #     help='sample id')
-    # parser_place.add_argument('--tree', metavar='tree', type=str, help='tree')
-    # parser_place.add_argument(
-    #     '--searchable_samples',
-    #     metavar='searchable_samples',
-    #     type=str,
-    #     help='list of samples (file)')
-    # parser_place.add_argument(
-    #     '--no-cache',
-    #     default=False,
-    #     action="store_true")
-    # parser_place.set_defaults(func=run_subtool)
-
-    ##
-
-    ##############
-    ## Place ##
-    #############
-    # parser_diff = subparsers.add_parser(
-    #     'diff',
-    #     help='Outputs novel sequence by calculating the difference between the sequence and combined graph',
-    #     parents=[sequence_or_binary_parser_mixin])
-    # parser_diff.add_argument(
-    #     'graph',
-    #     metavar='graph',
-    #     type=str,
-    #     help='The graph to compare new sample against')
-    # parser_diff.add_argument(
-    #     '--add',
-    #     default=False,
-    #     action="store_true",
-    #     help="after comparing, add the new sample to the graph")
-    # parser_diff.set_defaults(func=run_subtool)
-    ##
 
     args = parser.parse_args()
     args.func(parser, args)

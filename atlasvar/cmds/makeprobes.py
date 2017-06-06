@@ -4,6 +4,8 @@ import os
 import sys
 import logging
 from mongoengine import connect
+from mongoengine.connection import ConnectionError
+
 from mongoengine import DoesNotExist
 from mongoengine import NotUniqueError
 
@@ -25,6 +27,7 @@ from atlasvar.probes import make_variant_probe
 
 
 logging.basicConfig(level=logging.INFO)
+
 logger = logging.getLogger(__name__)
 
 
@@ -65,6 +68,7 @@ def run(parser, args):
                                      mut=mutation))
         else:
             for variant in args.variants:
+
                 gene, mutation = variant.split("_")
                 for var_name in aa2dna.get_variant_names(gene, mutation):
                     mutations.append(
@@ -91,7 +95,6 @@ def run(parser, args):
         else:
             mutations.extend(Mutation(reference=reference, var_name=v)
                              for v in args.variants)
-
     al = AlleleGenerator(
         reference_filepath=args.reference_filepath,
         kmer=args.kmer)
@@ -117,6 +120,7 @@ def run(parser, args):
             for i, a in enumerate(variant_panel.alts):
                 sys.stdout.write(">alt-%s?var_name=%s&enum=%i&gene=%s&mut=%s\n" %
                                  (mut.mut, mut.variant.var_name, i, gene_name, mut.mut))
+
                 sys.stdout.write("%s\n" % a)
         else:
             logging.warning(
