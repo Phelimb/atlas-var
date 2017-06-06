@@ -4,7 +4,7 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.Data import CodonTable
 import itertools
-from mykatlas.utils import split_var_name
+from atlasvar.utils import split_var_name
 
 
 def flatten(l):

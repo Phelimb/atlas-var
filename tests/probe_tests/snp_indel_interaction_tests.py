@@ -41,7 +41,7 @@ class TestINDELandSNPSAlleleGenerator():
             start=32,
             alternate_bases=["T"])
         panel = self.pg.create(v, context=[v2])
-        assert panel.ref == "CGATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGAT"
+        assert "CGATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGAT" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             [
@@ -62,7 +62,7 @@ class TestINDELandSNPSAlleleGenerator():
             start=33,
             alternate_bases=["A"])
         panel = self.pg.create(v, context=[v2])
-        assert panel.ref == "CGATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGAT"
+        assert "CGATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGAT" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             [
@@ -84,7 +84,7 @@ class TestINDELandSNPSAlleleGenerator():
             alternate_bases=["T"])
         panel = self.pg.create(v, context=[v2])
         assert self.pg._remove_overlapping_contexts(v, [v2]) == []
-        assert panel.ref == "CGATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGAT"
+        assert "CGATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGAT" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             ["CGATTAAAGATAGAAATACACGATGCGAGCATCAAATTTCATAACATCACCATGAGTTTGATC"])
@@ -104,7 +104,7 @@ class TestINDELandSNPSAlleleGenerator():
             alternate_bases=["TTTT"])
         panel = self.pg.create(v, context=[v2])
         assert self.pg._remove_overlapping_contexts(v, [v2]) == [v2]
-        assert panel.ref == "CGATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGAT"
+        assert "CGATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGAT" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             [
@@ -127,7 +127,7 @@ class TestINDELandSNPSAlleleGenerator():
         panel = self.pg.create(v, context=[v2])
         assert self.pg._remove_overlapping_contexts(v, [v2]) == [v2]
         assert self.pg._remove_contexts_not_within_k(v, [v2]) == []
-        assert panel.ref == "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC"
+        assert "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             ["CGATTAAAGATAGAAATACACGATGCGAGCAAAAATTTCATAACATCACCATGAGTTTGATCC"])
@@ -147,7 +147,7 @@ class TestINDELandSNPSAlleleGenerator():
             alternate_bases=["TT"])
         panel = self.pg.create(v, context=[v2])
         assert self.pg._remove_overlapping_contexts(v, [v2]) == [v2]
-        assert panel.ref == "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC"
+        assert "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             [
@@ -175,7 +175,7 @@ class TestINDELandSNPSAlleleGenerator():
             alternate_bases=["TG"])
         panel = self.pg.create(v, context=[v2, v3])
         assert self.pg._remove_overlapping_contexts(v, [v2, v3]) == [v2, v3]
-        assert panel.ref == "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC"
+        assert "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             [
@@ -204,7 +204,7 @@ class TestINDELandSNPSAlleleGenerator():
             alternate_bases=["AG"])
         panel = self.pg.create(v, context=[v2, v3])
         assert self.pg._remove_overlapping_contexts(v, [v2, v3]) == [v2, v3]
-        assert panel.ref == "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC"
+        assert "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             [
@@ -228,7 +228,7 @@ class TestINDELandSNPSAlleleGenerator():
             alternate_bases=["C"])
         panel = self.pg.create(v, context=[v2])
         assert self.pg._remove_overlapping_contexts(v, [v2]) == []
-        assert panel.ref == "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC"
+        assert "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             ["CGATTAAAGATAGAAATACACGATGCGAGCAAAAATTTCATAACATCACCATGAGTTTGATCC"])
@@ -253,7 +253,7 @@ class TestINDELandSNPSAlleleGenerator():
             start=7,
             alternate_bases=["AG"])
         panel = self.pg.create(v, context=[v2, v3])
-        assert panel.ref == "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC"
+        assert "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             [
@@ -262,7 +262,7 @@ class TestINDELandSNPSAlleleGenerator():
                 "GATTAAGAGATAGAAATACACGATGCGAGCAAAAATTTCATAACATCACCATGAGTTTGATCC"])
 
         panel = self.pg.create(v, context=[v3, v2])
-        assert panel.ref == "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC"
+        assert "GATTAAAGATAGAAATACACGATGCGAGCAATCAAATTTCATAACATCACCATGAGTTTGATC" in panel.refs
         assert sorted(
             panel.alts) == sorted(
             [
@@ -284,8 +284,8 @@ class TestINDELandSNPSAlleleGenerator():
             start=2338990,
             alternate_bases=["CGATA"])
         panel = self.pg2.create(v, context=[v1])
-        assert panel.ref ==   \
-            "CGACTAGCCACCATCGCGCATCAGTGCGAGGTCAAAAGCGACCAAAGCGAGCAAGTCGCGGAT"
+        assert "CGACTAGCCACCATCGCGCATCAGTGCGAGGTCAAAAGCGACCAAAGCGAGCAAGTCGCGGAT" in panel.refs
+
         assert panel.alts == \
             ["CGACTAGCCACCATCGCGCATCAGTGCGAGATCAAAAGCGACCAAAGCGAGCAAGTCGCGGAT",
              "CGACTAGCCACCATCGCGCATCAGTGCGAGATCAAAAGCGACCAAAGCGAGCAAGTCGCCGAT"]
@@ -310,8 +310,8 @@ class TestINDELandSNPSAlleleGenerator():
             start=4021489,
             alternate_bases=["G"])
         panel = self.pg2.create(v)  # , context = [v1, v2])
-        assert panel.ref ==   \
-            "ATCATGCGATTCTGCGTCTGCTCGCGAGGCTCGCGTGGCCGCCGGCGCTGGCGGGCGATCTCG"
+        assert "ATCATGCGATTCTGCGTCTGCTCGCGAGGCTCGCGTGGCCGCCGGCGCTGGCGGGCGATCTCG" in panel.refs
+
         panel = self.pg2.create(v, context=[v1, v2])
         assert sorted(
             panel.alts) == sorted(
@@ -341,8 +341,8 @@ class TestINDELandSNPSAlleleGenerator():
             start=1503655,
             alternate_bases=["ATGCCGCCGCC"])
         panel = self.pg2.create(v, context=[v1, v2])
-        assert panel.ref ==   \
-            "ATCCTGGAGCCCACCAGCGGAAACACCGGCATTTCGCTGGCGATGGCGGCCCGGTTGAAGGGG"
+        assert "ATCCTGGAGCCCACCAGCGGAAACACCGGCATTTCGCTGGCGATGGCGGCCCGGTTGAAGGGG" in panel.refs
+
         assert panel.alts == [
             "CATCCTGGAGCCCACCAGCGGAAACACCGGCACGCTGGCGATGGCGGCCCGGTTGAAGGGGTA",
             "CCATCGGAGCCCACCAGCGGAAACACCGGCACGCTGGCGATGGCGGCCCGGTTGAAGGGGTAC",
