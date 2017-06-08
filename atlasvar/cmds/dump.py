@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 from mongoengine import connect
 
-from ga4ghmongo.schema import Variant
+from atlasvar.schema import Variant
 from atlasvar.probes import AlleleGenerator
 from atlasvar.probes import make_variant_probe
 import math

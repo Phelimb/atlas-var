@@ -8,8 +8,8 @@ from mongoengine import DoesNotExist
 from pymongo import MongoClient
 
 from atlasvar.utils import check_args
-from ga4ghmongo.schema import ReferenceSet
-from ga4ghmongo.schema import Reference
+from atlasvar.schema import ReferenceSet
+from atlasvar.schema import Reference
 from atlasvar._vcf import VCF
 
 """Adds variants to the database"""

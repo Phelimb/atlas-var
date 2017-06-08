@@ -13,9 +13,9 @@ from mongoengine import GenericReferenceField
 from mongoengine import BooleanField
 from mongoengine import queryset_manager
 
-from ga4ghmongo.schema.models.base import CreateAndSaveMixin
-from ga4ghmongo.utils import split_var_name
-from ga4ghmongo.utils import make_var_hash
+from atlasvar.schema.models.base import CreateAndSaveMixin
+from atlasvar.utils import split_var_name
+from atlasvar.utils import make_var_hash
 
 # Based on ga4gh Variant schema http://ga4gh.org/#/schemas feb 2016 with
 # ocassional changes

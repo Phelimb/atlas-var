@@ -13,8 +13,8 @@ import datetime
 import math
 from atlasvar.utils import make_hash
 from atlasvar.utils import split_var_name
-from ga4ghmongo.schema.models.base import CreateAndSaveMixin
-from ga4ghmongo.schema import Variant
+from atlasvar.schema.models.base import CreateAndSaveMixin
+from atlasvar.schema import Variant
 
 
 def unique(seq):

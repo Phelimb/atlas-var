@@ -4,12 +4,12 @@ from collections import Counter
 from mongoengine import connect
 from pymongo.errors import ServerSelectionTimeoutError
 import logging
-from ga4ghmongo.schema import Variant
+from atlasvar.schema import Variant
 from atlasvar.utils import split_var_name
 from atlasvar.utils import flatten
 from atlasvar.utils import unique
 from atlasvar.probes import AlleleGenerator
-from ga4ghmongo.schema import VariantSet
+from atlasvar.schema import VariantSet
 
 # logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

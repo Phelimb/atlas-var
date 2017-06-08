@@ -3,13 +3,13 @@ import vcf
 import os.path
 from mongoengine import DoesNotExist
 from mongoengine import NotUniqueError
-from ga4ghmongo.schema import VariantCallSet
-from ga4ghmongo.schema import Variant
-from ga4ghmongo.schema import VariantSet
-from ga4ghmongo.schema import VariantSetMetadata
-from ga4ghmongo.schema import VariantCall
-from ga4ghmongo.schema import Reference
-from ga4ghmongo.schema import ReferenceSet
+from atlasvar.schema import VariantCallSet
+from atlasvar.schema import Variant
+from atlasvar.schema import VariantSet
+from atlasvar.schema import VariantSetMetadata
+from atlasvar.schema import VariantCall
+from atlasvar.schema import Reference
+from atlasvar.schema import ReferenceSet
 from atlasvar.utils import make_var_hash
 
 GLOBAL_VARIANT_SET_NAME = "global_atlas"

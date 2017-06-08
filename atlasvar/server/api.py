@@ -6,7 +6,7 @@ from flask.ext.mongorest.views import ResourceView
 from flask.ext.mongorest.resources import Resource
 from flask.ext.mongorest import operators as ops
 from flask.ext.mongorest import methods  
-from ga4ghmongo.schema import *
+from atlasvar.schema import *
 from flask.ext.mongorest.operators import Exact
 from flask.ext.mongorest.operators import Gte
 from flask.ext.mongorest.operators import Operator

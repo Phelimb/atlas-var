@@ -13,9 +13,9 @@ from pymongo.errors import ServerSelectionTimeoutError
 from Bio.Seq import Seq
 
 
-from ga4ghmongo.schema import Variant
-from ga4ghmongo.schema import ReferenceSet
-from ga4ghmongo.schema import Reference
+from atlasvar.schema import Variant
+from atlasvar.schema import ReferenceSet
+from atlasvar.schema import Reference
 
 from atlasvar.utils import split_var_name
 from atlasvar.annotation.genes import GeneAminoAcidChangeToDNAVariants

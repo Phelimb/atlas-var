@@ -6,7 +6,7 @@ from mongoengine import BooleanField
 from mongoengine import FloatField
 from mongoengine import ReferenceField
 
-from ga4ghmongo.schema.models.base import CreateAndSaveMixin
+from atlasvar.schema.models.base import CreateAndSaveMixin
 
 
 class Reference(Document, CreateAndSaveMixin):

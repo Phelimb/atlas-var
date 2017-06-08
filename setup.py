@@ -2,13 +2,13 @@ from setuptools import setup
 
 setup(
     name='atlasvar',
-    version='0.0.1.1',
+    version='0.5.2',
     packages=[
         'atlasvar',
         'atlasvar.probes',
-        # 'atlasvar.probes.models',
-        'ga4ghmongo.schema',
-        # 'ga4ghmongo.schema.models',
+        'atlasvar.probes.models',
+        'atlasvar.schema',
+        'atlasvar.schema.models',
         'atlasvar.cmds',
         'atlasvar.annotation',
         'atlasvar._vcf',
