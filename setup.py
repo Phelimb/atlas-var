@@ -6,7 +6,6 @@ setup(
     packages=[
         'atlasvar',
         'atlasvar.probes',
-        'atlasvar.probes.models',
         'atlasvar.schema',
         'atlasvar.schema.models',
         'atlasvar.cmds',
